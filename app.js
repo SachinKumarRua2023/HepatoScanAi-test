@@ -395,17 +395,10 @@ Always emphasize the need for professional medical consultation with a hepatolog
   }
 });
 
-// Serve static files
-app.use(express.static('.'));
-
-// Serve index.html at root
-app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: '.' });
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
+// For Vercel serverless - export handler
 module.exports = app;
