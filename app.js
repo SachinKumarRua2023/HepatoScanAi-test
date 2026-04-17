@@ -395,10 +395,13 @@ Always emphasize the need for professional medical consultation with a hepatolog
   }
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('.'));
-}
+// Serve static files
+app.use(express.static('.'));
+
+// Serve index.html at root
+app.get('/', (req, res) => {
+  res.sendFile('index.html', { root: '.' });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
