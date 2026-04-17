@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MediScan AI — Intelligent Medical Report Generator</title>
+<title>HepatoScan AI — Liver Health Analyzer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
 <style>
-  /* ── Reset & Variables ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -39,7 +38,6 @@
     overflow-x: hidden;
   }
 
-  /* ── Scanline overlay ── */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -54,7 +52,6 @@
     z-index: 1000;
   }
 
-  /* ── Header ── */
   header {
     padding: 20px 24px;
     border-bottom: 1px solid var(--border);
@@ -78,26 +75,37 @@
 
   .logo-icon {
     width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: linear-gradient(135deg, #8B4513, var(--orange));
     border-radius: 8px;
     display: grid; place-items: center;
     font-size: 18px;
   }
 
-  .logo span { color: var(--accent); }
+  .logo span { color: var(--orange); }
 
   .badge {
     font-size: 10px;
-    background: rgba(0,212,255,0.1);
-    border: 1px solid rgba(0,212,255,0.3);
-    color: var(--accent);
+    background: rgba(255,165,2,0.1);
+    border: 1px solid rgba(255,165,2,0.3);
+    color: var(--orange);
     padding: 3px 8px;
     border-radius: 20px;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
 
-  /* ── Main layout ── */
+  .back-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--accent); }
+
   main {
     max-width: 1100px;
     margin: 0 auto;
@@ -106,7 +114,6 @@
     gap: 24px;
   }
 
-  /* ── Hero ── */
   .hero {
     text-align: center;
     padding: 40px 20px 32px;
@@ -118,7 +125,7 @@
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 14px;
-    background: linear-gradient(135deg, var(--text) 30%, var(--accent));
+    background: linear-gradient(135deg, var(--text) 30%, var(--orange));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -127,11 +134,11 @@
   .hero p {
     color: var(--muted);
     font-size: 14px;
-    max-width: 520px;
+    max-width: 600px;
     margin: 0 auto 24px;
   }
 
-  .supported-tests {
+  .liver-tests {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -149,7 +156,6 @@
     letter-spacing: 0.5px;
   }
 
-  /* ── Cards ── */
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -163,14 +169,13 @@
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--orange);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  /* ── Upload Zone ── */
   .upload-zone {
     border: 2px dashed var(--border);
     border-radius: var(--radius);
@@ -179,13 +184,13 @@
     cursor: pointer;
     transition: all 0.25s ease;
     position: relative;
-    background: rgba(0,212,255,0.02);
+    background: rgba(255,165,2,0.02);
   }
 
   .upload-zone:hover,
   .upload-zone.drag-over {
-    border-color: var(--accent);
-    background: rgba(0,212,255,0.06);
+    border-color: var(--orange);
+    background: rgba(255,165,2,0.06);
     transform: translateY(-2px);
   }
 
@@ -224,7 +229,6 @@
     display: grid; place-items: center;
   }
 
-  /* ── Form Fields ── */
   .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -259,14 +263,12 @@
   .field input:focus,
   .field select:focus,
   .field textarea:focus {
-    border-color: var(--accent);
+    border-color: var(--orange);
   }
 
   .field select option { background: var(--surface); }
-
   .field textarea { resize: vertical; min-height: 80px; }
 
-  /* ── CTA Button ── */
   .btn-primary {
     display: flex;
     align-items: center;
@@ -275,7 +277,7 @@
     width: 100%;
     padding: 16px;
     margin-top: 20px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: linear-gradient(135deg, #8B4513, var(--orange));
     border: none;
     border-radius: var(--radius);
     color: #fff;
@@ -296,10 +298,9 @@
 
   .btn-primary:not(:disabled):hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,212,255,0.3);
+    box-shadow: 0 8px 30px rgba(255,165,2,0.3);
   }
 
-  /* ── Progress ── */
   .progress-bar {
     height: 3px;
     background: var(--border);
@@ -313,7 +314,7 @@
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    background: linear-gradient(90deg, #8B4513, var(--orange));
     border-radius: 2px;
     animation: progress 3s ease-in-out infinite;
   }
@@ -324,11 +325,10 @@
     100% { width: 95%; }
   }
 
-  /* ── Status message ── */
   .status-msg {
     text-align: center;
     font-size: 12px;
-    color: var(--accent);
+    color: var(--orange);
     margin-top: 8px;
     min-height: 18px;
     letter-spacing: 1px;
@@ -337,12 +337,10 @@
 
   @keyframes blink { 50% { opacity: 0.4; } }
 
-  /* ── Report Section ── */
   #reportSection { display: none; }
   #reportSection.visible { display: block; }
 
-  /* ── Urgency badge ── */
-  .urgency-badge {
+  .severity-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -355,11 +353,11 @@
     margin-bottom: 20px;
   }
 
-  .urgency-badge.routine  { background: rgba(0,245,160,0.15); color: var(--green); border: 1px solid rgba(0,245,160,0.3); }
-  .urgency-badge.urgent   { background: rgba(255,165,2,0.15);  color: var(--orange); border: 1px solid rgba(255,165,2,0.3); }
-  .urgency-badge.emergency{ background: rgba(255,71,87,0.15);  color: var(--red);    border: 1px solid rgba(255,71,87,0.3); }
+  .severity-badge.normal   { background: rgba(0,245,160,0.15); color: var(--green); border: 1px solid rgba(0,245,160,0.3); }
+  .severity-badge.mild     { background: rgba(0,212,255,0.15); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); }
+  .severity-badge.moderate { background: rgba(255,165,2,0.15); color: var(--orange); border: 1px solid rgba(255,165,2,0.3); }
+  .severity-badge.severe   { background: rgba(255,71,87,0.15); color: var(--red); border: 1px solid rgba(255,71,87,0.3); }
 
-  /* ── Findings table ── */
   .findings-table {
     width: 100%;
     border-collapse: collapse;
@@ -384,7 +382,7 @@
     vertical-align: top;
   }
 
-  .findings-table tr:hover td { background: rgba(0,212,255,0.03); }
+  .findings-table tr:hover td { background: rgba(255,165,2,0.03); }
 
   .sev {
     display: inline-block;
@@ -400,7 +398,6 @@
   .sev-moderate { background: rgba(255,165,2,0.15); color: var(--orange); }
   .sev-severe   { background: rgba(255,71,87,0.15); color: var(--red);    }
 
-  /* ── Info blocks ── */
   .info-block {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -417,7 +414,6 @@
   .info-block.red   { border-left: 3px solid var(--red);   }
   .info-block.blue  { border-left: 3px solid var(--accent); }
 
-  /* ── Tags/lists ── */
   .tag-list {
     display: flex;
     flex-wrap: wrap;
@@ -434,7 +430,6 @@
     color: var(--text);
   }
 
-  /* ── Advice cards ── */
   .advice-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -455,7 +450,7 @@
 
   .advice-num {
     min-width: 24px; height: 24px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: linear-gradient(135deg, #8B4513, var(--orange));
     border-radius: 50%;
     display: grid; place-items: center;
     font-size: 11px;
@@ -464,7 +459,6 @@
     flex-shrink: 0;
   }
 
-  /* ── Disclaimer ── */
   .disclaimer {
     background: rgba(255,71,87,0.06);
     border: 1px solid rgba(255,71,87,0.2);
@@ -476,16 +470,15 @@
     line-height: 1.6;
   }
 
-  /* ── Download btn ── */
   .btn-secondary {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--orange);
     border-radius: 8px;
     background: transparent;
-    color: var(--accent);
+    color: var(--orange);
     font-family: var(--mono);
     font-size: 12px;
     cursor: pointer;
@@ -495,10 +488,9 @@
   }
 
   .btn-secondary:hover {
-    background: rgba(0,212,255,0.1);
+    background: rgba(255,165,2,0.1);
   }
 
-  /* ── Error state ── */
   .error-box {
     background: rgba(255,71,87,0.1);
     border: 1px solid rgba(255,71,87,0.3);
@@ -512,14 +504,12 @@
 
   .error-box.visible { display: block; }
 
-  /* ── Section divider ── */
   .divider {
     border: none;
     border-top: 1px solid var(--border);
     margin: 28px 0;
   }
 
-  /* ── Footer ── */
   footer {
     text-align: center;
     padding: 24px;
@@ -529,7 +519,6 @@
     border-top: 1px solid var(--border);
   }
 
-  /* ── Mobile responsiveness ── */
   @media (max-width: 600px) {
     .form-grid { grid-template-columns: 1fr; }
     .advice-grid { grid-template-columns: 1fr; }
@@ -539,7 +528,6 @@
     .hero h1 { font-size: 26px; }
   }
 
-  /* ── Animations ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -550,43 +538,37 @@
 </head>
 <body>
 
-<!-- ── Header ── -->
 <header>
+  <a href="index.html" class="back-link">← Back to MediScan</a>
   <div class="logo">
-    <div class="logo-icon">🫁</div>
-    Medi<span>Scan</span> AI
+    <div class="logo-icon">🫘</div>
+    Hepato<span>Scan</span> AI
   </div>
-  <div class="badge">Powered by Gemini + Gemma</div>
+  <div class="badge">Powered by Gemini Vision</div>
 </header>
 
-<!-- ── Main ── -->
 <main>
 
-  <!-- Hero -->
   <div class="hero">
-    <h1>AI Medical<br/>Report Generator</h1>
-    <p>Upload any medical scan — MRI, CT, X-Ray, Ultrasound, PET — and receive an instant structured report with AI-powered patient advice.</p>
-    <div class="supported-tests">
-      <span class="test-chip">🧠 MRI Brain</span>
-      <span class="test-chip">🫁 CT Chest</span>
-      <span class="test-chip">🦴 X-Ray</span>
-      <span class="test-chip">❤️ Echo / Ultrasound</span>
-      <span class="test-chip">🔬 PET Scan</span>
-      <span class="test-chip">🩺 Mammogram</span>
-      <span class="test-chip">💉 Blood Report</span>
-      <a href="Heptoscan_ai_research.html" class="test-chip" style="text-decoration:none;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(123,47,255,0.2));border-color:var(--accent);color:var(--accent);cursor:pointer;">🫘 HepatoScan AI — Try Now</a>
+    <h1>Liver Health<br/>AI Analyzer</h1>
+    <p>Upload liver scan images — CT, MRI, Ultrasound, or FibroScan — and receive an instant AI-powered liver health assessment with personalized recommendations.</p>
+    <div class="liver-tests">
+      <span class="test-chip">🫘 Liver CT</span>
+      <span class="test-chip">🔬 Liver MRI</span>
+      <span class="test-chip">📊 FibroScan</span>
+      <span class="test-chip">🔍 Liver Ultrasound</span>
+      <span class="test-chip">🧪 Blood Reports</span>
+      <span class="test-chip">📋 Liver Function Tests</span>
     </div>
   </div>
 
-  <!-- Upload + Patient Info Card -->
   <div class="card animate-in">
-    <div class="card-title">⬆ Upload Scan / Report</div>
+    <div class="card-title">⬆ Upload Liver Scan / Report</div>
 
-    <!-- Upload zone -->
     <div class="upload-zone" id="uploadZone">
       <input type="file" id="fileInput" accept="image/*,.pdf" />
       <div class="upload-icon">📂</div>
-      <h3>Drop scan image here</h3>
+      <h3>Drop liver scan image here</h3>
       <p>Supports JPG, PNG, WEBP, TIFF, PDF · Max 20 MB</p>
       <div id="previewWrap" class="preview-wrap" style="display:none;">
         <img id="previewImg" src="" alt="preview" />
@@ -594,28 +576,19 @@
       </div>
     </div>
 
-    <!-- Patient details -->
     <div class="form-grid">
       <div class="field">
         <label>Test / Scan Type</label>
         <select id="testType">
-          <option value="MRI Brain">MRI — Brain</option>
-          <option value="MRI Spine">MRI — Spine</option>
-          <option value="MRI Knee">MRI — Knee</option>
-          <option value="MRI Abdomen">MRI — Abdomen</option>
-          <option value="CT Chest">CT — Chest</option>
-          <option value="CT Head">CT — Head</option>
-          <option value="CT Abdomen Pelvis">CT — Abdomen & Pelvis</option>
-          <option value="X-Ray Chest">X-Ray — Chest</option>
-          <option value="X-Ray Bone">X-Ray — Bone</option>
-          <option value="Ultrasound Abdomen">Ultrasound — Abdomen</option>
-          <option value="Echocardiogram">Echocardiogram</option>
-          <option value="PET Scan">PET Scan</option>
-          <option value="Mammogram">Mammogram</option>
-          <option value="Blood Test Report">Blood Test Report</option>
-          <option value="Pathology Report">Pathology Report</option>
-          <option value="ECG/EKG">ECG / EKG</option>
-          <option value="General Medical Scan">Other / General</option>
+          <option value="Liver CT">Liver CT Scan</option>
+          <option value="Liver MRI">Liver MRI</option>
+          <option value="Liver Ultrasound">Liver Ultrasound</option>
+          <option value="FibroScan">FibroScan (Elastography)</option>
+          <option value="Liver Function Test">Liver Function Blood Test</option>
+          <option value="HBV DNA Test">Hepatitis B DNA Test</option>
+          <option value="HCV RNA Test">Hepatitis C RNA Test</option>
+          <option value="Alpha-fetoprotein">Alpha-fetoprotein (AFP) Test</option>
+          <option value="Liver Biopsy">Liver Biopsy Report</option>
         </select>
       </div>
 
@@ -634,15 +607,25 @@
         </select>
       </div>
 
+      <div class="field">
+        <label>Alcohol Consumption</label>
+        <select id="alcoholUse">
+          <option value="None">None</option>
+          <option value="Occasional">Occasional</option>
+          <option value="Regular">Regular</option>
+          <option value="Heavy">Heavy</option>
+        </select>
+      </div>
+
       <div class="field" style="grid-column: 1 / -1;">
-        <label>Reported Symptoms / Clinical Notes</label>
-        <textarea id="symptoms" placeholder="e.g. Persistent headache for 2 weeks, blurred vision, dizziness..."></textarea>
+        <label>Symptoms / Clinical Notes</label>
+        <textarea id="symptoms" placeholder="e.g. Fatigue, abdominal pain, jaundice, history of hepatitis, medications..."></textarea>
       </div>
     </div>
 
     <button class="btn-primary" id="analyseBtn" disabled>
       <span id="btnIcon">🔬</span>
-      <span id="btnText">Analyse Scan</span>
+      <span id="btnText">Analyze Liver Scan</span>
     </button>
 
     <div class="progress-bar" id="progressBar">
@@ -652,26 +635,23 @@
     <div class="error-box" id="errorBox"></div>
   </div>
 
-  <!-- ── Report Output ── -->
   <div id="reportSection">
 
-    <!-- Radiologist Report -->
     <div class="card animate-in" id="reportCard">
-      <div class="card-title">📋 Radiologist Report <span style="font-size:10px;color:var(--muted);margin-left:8px;">via Gemini Flash Vision</span></div>
+      <div class="card-title">📋 Liver Health Assessment <span style="font-size:10px;color:var(--muted);margin-left:8px;">via Gemini Flash Vision</span></div>
 
-      <div id="urgencyBadge"></div>
+      <div id="severityBadge"></div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;" id="metaGrid"></div>
 
-      <!-- Findings -->
-      <div class="card-title" style="font-size:11px;margin-bottom:8px;">🔍 Imaging Findings</div>
+      <div class="card-title" style="font-size:11px;margin-bottom:8px;">🔍 Key Findings</div>
       <div style="overflow-x:auto;">
         <table class="findings-table" id="findingsTable">
           <thead>
             <tr>
-              <th>Region / Structure</th>
+              <th>Parameter / Region</th>
               <th>Observation</th>
-              <th>Severity</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody id="findingsBody"></tbody>
@@ -680,11 +660,11 @@
 
       <hr class="divider" />
 
-      <div class="card-title" style="font-size:11px;">💡 Impression</div>
+      <div class="card-title" style="font-size:11px;">💡 Clinical Impression</div>
       <div class="info-block blue" id="impressionBlock"></div>
 
-      <div class="card-title" style="font-size:11px;margin-top:20px;">⚖️ Differential Diagnosis</div>
-      <div class="tag-list" id="diffDiag"></div>
+      <div class="card-title" style="font-size:11px;margin-top:20px;">🎯 Possible Conditions</div>
+      <div class="tag-list" id="conditionsList"></div>
 
       <div class="card-title" style="font-size:11px;margin-top:20px;">📅 Recommended Follow-Up</div>
       <div class="info-block" id="followUpBlock"></div>
@@ -693,9 +673,8 @@
       <div class="info-block orange" id="limitationsBlock"></div>
     </div>
 
-    <!-- Gemma Advice -->
     <div class="card animate-in" id="adviceCard">
-      <div class="card-title">💬 Patient Advice <span style="font-size:10px;color:var(--muted);margin-left:8px;">via Gemma 3 27B</span></div>
+      <div class="card-title">💬 Personalized Liver Health Advice <span style="font-size:10px;color:var(--muted);margin-left:8px;">via Gemini Pro</span></div>
 
       <div class="card-title" style="font-size:11px;margin-bottom:6px;">🗣 In Plain Language</div>
       <div class="info-block green" id="simpleSummary"></div>
@@ -703,11 +682,11 @@
       <div class="card-title" style="font-size:11px;margin-top:20px;margin-bottom:6px;">🩺 What This Means</div>
       <div class="info-block" id="whatItMeans"></div>
 
-      <div class="card-title" style="font-size:11px;margin-top:20px;margin-bottom:6px;">✅ Recommendations</div>
+      <div class="card-title" style="font-size:11px;margin-top:20px;margin-bottom:6px;">✅ Lifestyle Recommendations</div>
       <div class="advice-grid" id="recommendationsGrid"></div>
 
-      <div class="card-title" style="font-size:11px;margin-top:20px;margin-bottom:6px;">🚨 Red Flag Symptoms</div>
-      <div id="redFlagsBlock"></div>
+      <div class="card-title" style="font-size:11px;margin-top:20px;margin-bottom:6px;">🚨 Warning Signs to Watch</div>
+      <div id="warningBlock"></div>
 
       <div class="card-title" style="font-size:11px;margin-top:20px;margin-bottom:6px;">👨‍⚕️ Specialist Referral</div>
       <div class="info-block blue" id="referralBlock"></div>
@@ -715,7 +694,6 @@
       <div class="disclaimer" id="disclaimerBlock"></div>
     </div>
 
-    <!-- Actions -->
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;">
       <button class="btn-secondary" onclick="printReport()">🖨 Print Report</button>
       <button class="btn-secondary" onclick="downloadJSON()">⬇ Download JSON</button>
@@ -726,31 +704,28 @@
 </main>
 
 <footer>
-  MediScan AI · Powered by Google Gemini Flash (Vision) + Gemma 3 27B ·
-  This is an AI tool — not a substitute for professional medical advice.
+  HepatoScan AI · Powered by Google Gemini Flash (Vision) ·
+  This is an AI tool — not a substitute for professional medical advice. Always consult a hepatologist or gastroenterologist.
 </footer>
 
 <script>
-// ── State ──────────────────────────────────────────────────────────────────────
 let currentFile = null;
-let fullReport  = {};
-let fullAdvice  = {};
+let fullReport = {};
+let fullAdvice = {};
 
-// ── DOM refs ──────────────────────────────────────────────────────────────────
-const fileInput    = document.getElementById("fileInput");
-const uploadZone   = document.getElementById("uploadZone");
-const previewWrap  = document.getElementById("previewWrap");
-const previewImg   = document.getElementById("previewImg");
-const removeBtn    = document.getElementById("removeBtn");
-const analyseBtn   = document.getElementById("analyseBtn");
-const progressBar  = document.getElementById("progressBar");
-const statusMsg    = document.getElementById("statusMsg");
-const errorBox     = document.getElementById("errorBox");
-const reportSection= document.getElementById("reportSection");
-const btnText      = document.getElementById("btnText");
-const btnIcon      = document.getElementById("btnIcon");
+const fileInput = document.getElementById("fileInput");
+const uploadZone = document.getElementById("uploadZone");
+const previewWrap = document.getElementById("previewWrap");
+const previewImg = document.getElementById("previewImg");
+const removeBtn = document.getElementById("removeBtn");
+const analyseBtn = document.getElementById("analyseBtn");
+const progressBar = document.getElementById("progressBar");
+const statusMsg = document.getElementById("statusMsg");
+const errorBox = document.getElementById("errorBox");
+const reportSection = document.getElementById("reportSection");
+const btnText = document.getElementById("btnText");
+const btnIcon = document.getElementById("btnIcon");
 
-// ── File handling ─────────────────────────────────────────────────────────────
 fileInput.addEventListener("change", e => handleFile(e.target.files[0]));
 
 uploadZone.addEventListener("dragover", e => {
@@ -791,58 +766,56 @@ function handleFile(file) {
   }
 }
 
-// ── Analyse button ─────────────────────────────────────────────────────────────
 analyseBtn.addEventListener("click", runAnalysis);
 
 async function runAnalysis() {
   if (!currentFile) return;
 
-  // UI: loading state
   analyseBtn.disabled = true;
-  btnIcon.textContent  = "⏳";
-  btnText.textContent  = "Analysing…";
+  btnIcon.textContent = "⏳";
+  btnText.textContent = "Analyzing…";
   progressBar.classList.add("active");
   reportSection.classList.remove("visible");
   errorBox.classList.remove("visible");
   setStatus("📡 Uploading scan to Gemini Vision…");
 
   try {
-    // ── Step 1: Analyse scan ──────────────────────────────────────────────────
     const formData = new FormData();
-    formData.append("file",       currentFile);
-    formData.append("testType",   document.getElementById("testType").value);
+    formData.append("file", currentFile);
+    formData.append("testType", document.getElementById("testType").value);
     formData.append("patientAge", document.getElementById("patientAge").value || "Unknown");
     formData.append("patientSex", document.getElementById("patientSex").value);
-    formData.append("symptoms",   document.getElementById("symptoms").value   || "Not specified");
+    formData.append("symptoms", document.getElementById("symptoms").value || "Not specified");
+    formData.append("alcoholUse", document.getElementById("alcoholUse").value);
+    formData.append("scanCategory", "liver");
 
-    const r1 = await fetch("/api/analyse", { method: "POST", body: formData });
+    const r1 = await fetch("/api/hepato-analyze", { method: "POST", body: formData });
     if (!r1.ok) {
       const e = await r1.json();
-      throw new Error(e.error || "Analyse failed");
+      throw new Error(e.error || "Analysis failed");
     }
     const d1 = await r1.json();
     fullReport = d1.report;
-    setStatus("🧠 Generating patient advice via Gemma…");
+    setStatus("🧠 Generating personalized liver health advice…");
 
-    // ── Step 2: Get advice ────────────────────────────────────────────────────
-    const r2 = await fetch("/api/advice", {
+    const r2 = await fetch("/api/hepato-advice", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        report:     fullReport,
+        report: fullReport,
         patientAge: document.getElementById("patientAge").value || "Unknown",
         patientSex: document.getElementById("patientSex").value,
-        symptoms:   document.getElementById("symptoms").value   || "Not specified",
+        symptoms: document.getElementById("symptoms").value || "Not specified",
+        alcoholUse: document.getElementById("alcoholUse").value,
       }),
     });
     if (!r2.ok) {
       const e = await r2.json();
-      throw new Error(e.error || "Advice failed");
+      throw new Error(e.error || "Advice generation failed");
     }
     const d2 = await r2.json();
     fullAdvice = d2.advice;
 
-    // ── Render ────────────────────────────────────────────────────────────────
     renderReport(fullReport);
     renderAdvice(fullAdvice);
 
@@ -856,35 +829,31 @@ async function runAnalysis() {
   } finally {
     progressBar.classList.remove("active");
     analyseBtn.disabled = false;
-    btnIcon.textContent  = "🔬";
-    btnText.textContent  = "Analyse Scan";
+    btnIcon.textContent = "🔬";
+    btnText.textContent = "Analyze Liver Scan";
   }
 }
 
-// ── Render Report ─────────────────────────────────────────────────────────────
 function renderReport(r) {
   if (!r) return;
 
-  // Urgency badge
-  const u = (r.urgency || "routine").toLowerCase();
-  document.getElementById("urgencyBadge").innerHTML = `
-    <span class="urgency-badge ${u}">
-      ${ u === "emergency" ? "🚨" : u === "urgent" ? "⚡" : "✅" }
-      ${r.urgency || "Routine"}
+  const sev = (r.severity || "normal").toLowerCase();
+  document.getElementById("severityBadge").innerHTML = `
+    <span class="severity-badge ${sev}">
+      ${sev === "severe" ? "🚨" : sev === "moderate" ? "⚡" : sev === "mild" ? "⚠️" : "✅"}
+      ${r.severity || "Normal"}
     </span>`;
 
-  // Meta grid
   document.getElementById("metaGrid").innerHTML = `
     <div class="info-block">
-      <strong style="color:var(--muted);font-size:11px;letter-spacing:1px;">REPORT TITLE</strong><br/>
-      ${r.reportTitle || "Medical Imaging Report"}
+      <strong style="color:var(--muted);font-size:11px;letter-spacing:1px;">ASSESSMENT TITLE</strong><br/>
+      ${r.reportTitle || "Liver Health Assessment"}
     </div>
     <div class="info-block">
       <strong style="color:var(--muted);font-size:11px;letter-spacing:1px;">SCAN QUALITY</strong><br/>
       ${r.scanQuality || "—"}
     </div>`;
 
-  // Findings
   const tbody = document.getElementById("findingsBody");
   tbody.innerHTML = "";
   const findings = Array.isArray(r.findings) ? r.findings : [];
@@ -892,42 +861,38 @@ function renderReport(r) {
     tbody.innerHTML = `<tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px;">No specific findings listed.</td></tr>`;
   } else {
     findings.forEach(f => {
-      const sev = (f.severity || "normal").toLowerCase();
+      const st = (f.status || "normal").toLowerCase();
       tbody.insertAdjacentHTML("beforeend", `
         <tr>
-          <td><strong>${f.region || "—"}</strong></td>
+          <td><strong>${f.parameter || "—"}</strong></td>
           <td>${f.observation || "—"}</td>
-          <td><span class="sev sev-${sev}">${f.severity || "Normal"}</span></td>
+          <td><span class="sev sev-${st}">${f.status || "Normal"}</span></td>
         </tr>`);
     });
   }
 
-  // Text blocks
-  document.getElementById("impressionBlock").textContent    = r.impression     || "—";
-  document.getElementById("followUpBlock").textContent      = r.recommendedFollowUp || "—";
-  document.getElementById("limitationsBlock").textContent   = r.limitations    || "—";
+  document.getElementById("impressionBlock").textContent = r.impression || "—";
+  document.getElementById("followUpBlock").textContent = r.recommendedFollowUp || "—";
+  document.getElementById("limitationsBlock").textContent = r.limitations || "—";
 
-  // Differential diagnosis tags
-  const dd = document.getElementById("diffDiag");
-  dd.innerHTML = "";
-  const diffs = Array.isArray(r.differentialDiagnosis) ? r.differentialDiagnosis : [];
-  if (diffs.length === 0) {
-    dd.innerHTML = `<span class="tag" style="color:var(--muted);">None specified</span>`;
+  const cl = document.getElementById("conditionsList");
+  cl.innerHTML = "";
+  const conds = Array.isArray(r.possibleConditions) ? r.possibleConditions : [];
+  if (conds.length === 0) {
+    cl.innerHTML = `<span class="tag" style="color:var(--muted);">None specified</span>`;
   } else {
-    diffs.forEach(d => dd.insertAdjacentHTML("beforeend", `<span class="tag">${d}</span>`));
+    conds.forEach(c => cl.insertAdjacentHTML("beforeend", `<span class="tag">${c}</span>`));
   }
 }
 
-// ── Render Advice ─────────────────────────────────────────────────────────────
 function renderAdvice(a) {
   if (!a) return;
 
   document.getElementById("simpleSummary").textContent = a.simpleSummary || a.raw || "—";
-  document.getElementById("whatItMeans").textContent   = a.whatItMeans   || "—";
-  document.getElementById("referralBlock").textContent = a.specialistReferral || "No specific referral needed.";
+  document.getElementById("whatItMeans").textContent = a.whatItMeans || "—";
+  document.getElementById("referralBlock").textContent = a.specialistReferral || "Consult a hepatologist or gastroenterologist for personalized care.";
   document.getElementById("disclaimerBlock").innerHTML = `⚠️ <strong>Disclaimer:</strong> ${a.disclaimer || "This report is AI-generated and is not a substitute for professional medical diagnosis. Please consult a qualified healthcare provider."}`;
 
-  // Recommendations
   const rg = document.getElementById("recommendationsGrid");
   rg.innerHTML = "";
   const recs = Array.isArray(a.recommendations) ? a.recommendations : [];
@@ -939,18 +904,16 @@ function renderAdvice(a) {
       </div>`);
   });
 
-  // Red flags
-  const rf = document.getElementById("redFlagsBlock");
-  const flags = Array.isArray(a.redFlags) ? a.redFlags : [];
-  if (flags.length === 0) {
-    rf.innerHTML = `<div class="info-block green">No immediate red-flag symptoms identified.</div>`;
+  const wb = document.getElementById("warningBlock");
+  const warns = Array.isArray(a.warningSigns) ? a.warningSigns : [];
+  if (warns.length === 0) {
+    wb.innerHTML = `<div class="info-block green">No immediate warning signs identified. Continue regular monitoring.</div>`;
   } else {
-    rf.innerHTML = flags.map(f => `<div class="info-block red" style="margin-bottom:8px;">🚨 ${f}</div>`).join("");
+    wb.innerHTML = warns.map(w => `<div class="info-block red" style="margin-bottom:8px;">🚨 ${w}</div>`).join("");
   }
 }
 
-// ── Utilities ─────────────────────────────────────────────────────────────────
-function setStatus(msg)  { statusMsg.textContent = msg; }
+function setStatus(msg) { statusMsg.textContent = msg; }
 
 function showError(msg) {
   errorBox.textContent = `❌ Error: ${msg}`;
@@ -959,11 +922,11 @@ function showError(msg) {
 
 function resetApp() {
   currentFile = null;
-  fullReport  = {};
-  fullAdvice  = {};
+  fullReport = {};
+  fullAdvice = {};
   fileInput.value = "";
   previewWrap.style.display = "none";
-  previewImg.src  = "";
+  previewImg.src = "";
   analyseBtn.disabled = true;
   reportSection.classList.remove("visible");
   errorBox.classList.remove("visible");
@@ -974,13 +937,14 @@ function resetApp() {
 function printReport() { window.print(); }
 
 function downloadJSON() {
-  const data = { report: fullReport, advice: fullAdvice, generatedAt: new Date().toISOString() };
-  const blob  = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const data = { report: fullReport, advice: fullAdvice, generatedAt: new Date().toISOString(), type: "Liver Health Assessment" };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `mediscan-report-${Date.now()}.json`;
+  a.download = `hepatoscan-report-${Date.now()}.json`;
   a.click();
 }
 </script>
+
 </body>
 </html>
